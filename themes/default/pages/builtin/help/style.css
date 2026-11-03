@@ -28,8 +28,8 @@ body {
 
 .wrapper {
   width: 880px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: color-mix(in srgb, var(--color-background-main) 95%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-background-main) 80%, transparent);
   border-radius: 24px;
   padding: 35px 30px;
   box-sizing: border-box;
@@ -59,7 +59,7 @@ body {
 
 .help-card {
   position: relative;
-  background: #ffffff;
+  background: var(--color-background-main);
   border-radius: 16px;
   padding: 25px 30px;
   border: 1px solid rgba(246, 113, 134, 0.1);
@@ -69,7 +69,7 @@ body {
 }
 
 .help-card:first-child {
-  background: rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--color-background-main) 90%, transparent);
 }
 
 .section-header {
@@ -140,7 +140,7 @@ body {
   box-shadow: none;
 }
 .meta-item {
-  background: rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--color-background-main) 90%, transparent);
   border: 1px solid rgba(246, 113, 134, 0.15);
   border-radius: 16px;
   padding: 12px 24px;
@@ -202,6 +202,11 @@ body {
   z-index: 10;
   opacity: 1;
   pointer-events: none;
+}
+
+.help-card:has(> .info-box-deco) .section-content {
+  min-height: 140px;
+  padding-right: 120px;
 }
 
 .section-content::after {
@@ -287,9 +292,9 @@ body {
   line-height: 1.5;
   margin: 1em 0;
 
-  background-color: #ffffff;
-  color: #476582;
-  border: 1px solid #e2e8f0;
+  background-color: var(--color-background-main);
+  color: color-mix(in srgb, #476582 60%, var(--color-text-dark));
+  border: 1px solid var(--color-border-light);
   border-left: 4px solid var(--color-primary);
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
@@ -331,7 +336,7 @@ body {
 }
 
 .intro-glass {
-  background: rgba(255, 255, 255, 0.6);
+  background: color-mix(in srgb, var(--color-background-main) 60%, transparent);
   border: 1px solid rgba(246, 113, 134, 0.2);
   box-shadow: 0 4px 12px rgba(246, 113, 134, 0.05);
   border-radius: 16px;

@@ -1,4 +1,5 @@
 {% extends 'partials/_base.html' %}
+{% import "macros/icons.jinja" as icons %}
 
 {% block title %}签到卡片{% endblock %}
 
@@ -9,80 +10,128 @@
 {% endblock %}
 
 {% block body_content %}
+{% set fav = data.favorability %}
+{% set level = fav.level %}
+{% set top = fav.levels | length - 1 %}
+{% set name = data.user.nickname %}
+{% set size = 30 if name | length <= 6 else 24 if name | length <= 10 else 19 %}
+{% set stamp = data.page.date_str %}
+{% set signing = not data.is_card_view and data.reward %}
+{% set said = data.bot_message.split(': ', 1) %}
+{% set hist = data.history %}
 <div class="wrapper">
-    <div class="top-head">
-        <div style="display: flex;">
-            <div class="avatar">
-                <img class="avatar-img" src="{{data.user.avatar_url}}" alt="">
-            </div>
-            <div style="position: relative;">
-                <p class="nickname" style="font-size: {{ data.user.font_size }}px;">{{data.user.nickname}}</p>
-                <p class="uid">UID:{{data.user.uid_str}}</p>
-            </div>
+    <header class="who">
+        <img class="avatar" src="{{ data.user.avatar_url }}" alt="">
+        <div class="who-text">
+            <h1 class="name" style="font-size: {{ size }}px">{{ name }}</h1>
+            <p class="uid">业务 UID {{ data.user.uid_str }}</p>
         </div>
-    </div>
-    <div class="sign-content">
-        <div class="sign-bottom"></div>
-        <div class="sign-top">
-            <img class="rl-img" src="{{ asset('./img/rl.png') }}" alt="">
-            <img class="zx-img" src="{{ asset('./img/1.png') }}" alt="">
-            <p class="text-day">累计签到{{data.user.sign_count}}天</p>
-            <p class="text-zx">{{data.bot_message}}</p>
+        <div class="streak">
+            <p><b>{{ hist.streak }}</b>天</p>
+            <em>连续签到</em>
+            <em>累计 {{ data.user.sign_count }} 天</em>
         </div>
+    </header>
+    {% if data.user.platform_id %}
+    <div class="ids">
+        <p>{{ data.user.platform_id_label }}：{{ data.user.platform_id }}</p>
+        {% if data.user.bound_qq %}<p>绑定 QQ：{{ data.user.bound_qq }}</p>{% endif %}
     </div>
-    <div class="sign-data">
-        <img class="qian" src="{{ asset('./img/tag/' + data.page.tag_icon_name) }}" alt="">
+    {% endif %}
 
-        {% if not data.is_card_view and data.reward %}
-        <p class="today-text">今日签到</p>
-        <div class="abs-text" style="top: 42px;">
-            <p class="gift">好感度 +{{ "%.2f"|format(data.reward.impression_added) }}{% if data.reward.is_double %} (×2){%
-                endif %}</p>
+    <section class="sheet">
+        <i class="ring ring-l"></i><i class="ring ring-r"></i>
+        <div class="sheet-head">
+            <h2>{{ stamp[5:7] | int }}月{{ stamp[8:10] | int }}日<small class="lunar" data-date="{{ stamp[:10] }}"></small></h2>
+            <p>本月签到 <b>{{ hist.month_count }}</b> 天</p>
         </div>
-        <div class="abs-text" style="top: 83px;">
-            <p class="gift">金币 +{{data.reward.gold_added}}</p>
+        <div class="weekdays">
+            {% for w in ['一', '二', '三', '四', '五', '六', '日'] %}<span>{{ w }}</span>{% endfor %}
         </div>
-        <div class="abs-text" style="top: 123px;">
-            <p class="gift">{{data.reward.gift_received}}</p>
+        <div class="days">
+            {% for _ in range(hist.offset) %}<span class="day blank"></span>{% endfor %}
+            {% for d in hist.days %}
+            <span class="day {{ d.state }}{% if d.today %} today{% endif %}">{{ d.day }}</span>
+            {% endfor %}
         </div>
+    </section>
+
+    <section class="gains">
+        {% if signing %}
+        {% set r = data.reward %}
+        <div class="gain">
+            {{ icons.heart_fill(size=26, color='var(--accent)') }}
+            <div>
+                <b>+{{ "%.2f" | format(r.impression_added) }}{% if r.is_double %}<i>双倍</i>{% endif %}</b>
+                <span>好感度</span>
+            </div>
+        </div>
+        <div class="gain">
+            {{ icons.coin(size=26, color='var(--gold)') }}
+            <div><b>+{{ r.gold_added }}</b><span>金币</span></div>
+        </div>
+        {% if r.gift_received %}
+        <p class="gift">{{ icons.gift(size=18) }}<span>幸运奖励：{{ r.gift_received }}</span></p>
+        {% endif %}
         {% else %}
-        <p class="today-text">我的信息</p>
-        <div class="abs-text" style="top: 42px;">
-            <p class="gift">好感度排名第 {{ data.rank }} 位</p>
+        <div class="gain">
+            {{ icons.star_fill(size=26, color='var(--accent)') }}
+            <div><b><small>第</small>{{ data.rank }}<small>名</small></b><span>好感度排名</span></div>
         </div>
-        <div class="abs-text" style="top: 83px;">
-            <p class="gift">总金币：{{ data.total_gold }}</p>
-        </div>
-        <div class="abs-text" style="top: 123px;">
-            <p class="gift"></p>
+        <div class="gain">
+            {{ icons.coin(size=26, color='var(--gold)') }}
+            <div><b>{{ "{:,}".format(data.total_gold) }}</b><span>金币</span></div>
         </div>
         {% endif %}
-    </div>
-    <div class="line"></div>
-    <div class="bottom-foot">
-        <p class="cur-text">当前好感度: {{ "%.2f"|format(data.favorability.current) }}</p>
-        <div class="heart-list">
-            {% for i in data.favorability.heart2 %}
-            <img class="heart-img" src="{{ asset('./img/h2.png') }}" alt="" />
-            {% endfor %}
-            {% for i in data.favorability.heart1 %}
-            <img class="heart-img" src="{{ asset('./img/h1.png') }}" alt="" />
-            {% endfor %}
+    </section>
+
+    <section class="level">
+        <div class="level-head">
+            <h2>Lv.{{ level }}<span>{{ fav.levels[level].name }}</span></h2>
+            <p>{{ data.attitude | replace(': ', '：') }}</p>
         </div>
-        <div class="bot-text">
-            <p style="position: absolute; top: 9px">好感度等级: {{data.favorability.level_text}}</p>
-            <p style="position: absolute; top: 58px">{{data.attitude}}</p>
-            <p style="position: absolute; top: 111px">距离升级还差{{data.interpolation}}好感度</p>
+        <div class="meter" style="--p: {{ data.progress }}">
+            <div class="meter-fill"></div>
+            <b class="meter-now">{{ "%.2f" | format(fav.current) }}</b>
         </div>
-        <div class="progress-border">
-            <div class="progress-bar" style="width: {{data.progress}}%;"></div>
+        <div class="meter-ends">
+            <span>{{ fav.levels[level].name }} {{ fav.previous_level_at }}</span>
+            {% if level >= top %}
+            <span class="goal">已达最高等级</span>
+            {% else %}
+            <span class="goal">还差 <em>{{ data.interpolation }}</em></span>
+            {% endif %}
+            <span>{% if level < top %}{{ fav.levels[level + 1].name }} {{ fav.next_level_at }}{% else %}MAX{% endif %}</span>
         </div>
-        <img class="weather-img" src="{{ asset('./img/weather/' + data.page.weather_icon_name) }}" alt="">
-        <p class="wd">{{data.page.temperature}}℃</p>
-        <img class="mbl-img" src="{{ asset('./img/2.png') }}" alt="">
-        <div class="date">{{data.page.date_str}}</div>
-    </div>
+    </section>
+
+    <footer class="say">
+        <img class="mahiro" src="{{ asset('./img/mahiro.png') }}" alt="">
+        <p class="bubble">{{ said[-1] }}</p>
+    </footer>
 </div>
 {% endblock %}
 
 {% block footer %}{% endblock %}
+
+{% block page_scripts %}
+<script>
+    document.querySelectorAll('.lunar').forEach(function (node) {
+        try {
+            var parts = new Intl.DateTimeFormat('zh-CN-u-ca-chinese', {
+                timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric'
+            }).formatToParts(new Date(node.dataset.date + 'T00:00:00Z'));
+            var get = function (type) {
+                var part = parts.find(function (p) { return p.type === type; });
+                return part ? part.value : '';
+            };
+            var day = parseInt(get('day'), 10);
+            var name = { 10: '初十', 20: '二十', 30: '三十' }[day]
+                || '初十廿三'[Math.floor(day / 10)] + '一二三四五六七八九'[day % 10 - 1];
+            node.textContent = '农历' + get('yearName') + '年 ' + get('month') + name;
+        } catch (e) {
+            node.remove();
+        }
+    });
+</script>
+{% endblock %}

@@ -355,3 +355,30 @@
   background-color: rgba(224, 138, 159, 0.3);
   color: #2d3748;
 }
+
+/* 代码块与语法高亮 */
+.markdown-body .codehilite {
+  margin-bottom: 16px;
+  background: transparent;
+}
+
+.markdown-body .codehilite pre {
+  margin-bottom: 0;
+}
+
+.markdown-body pre code {
+  padding: 0;
+  font-size: 90%;
+  background: transparent;
+  color: #2d3748;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.markdown-body .codehilite [class^="k"] { color: #c2457a; font-weight: 600; }
+.markdown-body .codehilite [class^="s"] { color: #2e8b57; }
+.markdown-body .codehilite [class^="c"] { color: #9a8f97; font-style: italic; }
+.markdown-body .codehilite [class^="m"] { color: #b35900; }
+.markdown-body .codehilite .nf, .markdown-body .codehilite .nc { color: #3b6fd6; }
+.markdown-body .codehilite .nb, .markdown-body .codehilite .bp { color: #0f7c8c; }
+.markdown-body .codehilite .nd, .markdown-body .codehilite .ow { color: #e08a9f; }

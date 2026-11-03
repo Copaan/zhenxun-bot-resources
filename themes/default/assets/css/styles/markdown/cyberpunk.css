@@ -384,3 +384,49 @@
 .markdown-body h4 {
   color: #fede5d;
 }
+
+/* 代码块与语法高亮 */
+.markdown-style-cyberpunk .markdown-body code,
+.markdown-style-cyberpunk .markdown-body tt {
+  padding: .2em .4em;
+  font-size: 85%;
+  border-radius: 6px;
+  background-color: rgba(255, 126, 219, 0.12);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
+.markdown-style-cyberpunk .markdown-body pre {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  overflow: hidden;
+  line-height: 1.5;
+  border-radius: 8px;
+  background-color: #1b1a29;
+  border: 1px solid #495495;
+}
+
+.markdown-style-cyberpunk .markdown-body .codehilite {
+  margin-bottom: 16px;
+  background: transparent;
+}
+
+.markdown-style-cyberpunk .markdown-body .codehilite pre {
+  margin-bottom: 0;
+}
+
+.markdown-style-cyberpunk .markdown-body pre code {
+  padding: 0;
+  font-size: 90%;
+  background: transparent;
+  color: #f8f8f2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.markdown-style-cyberpunk .markdown-body .codehilite [class^="k"] { color: #fede5d; font-weight: 600; }
+.markdown-style-cyberpunk .markdown-body .codehilite [class^="s"] { color: #ff8b39; }
+.markdown-style-cyberpunk .markdown-body .codehilite [class^="c"] { color: #848bbd; font-style: italic; }
+.markdown-style-cyberpunk .markdown-body .codehilite [class^="m"] { color: #f97e72; }
+.markdown-style-cyberpunk .markdown-body .codehilite .nf, .markdown-style-cyberpunk .markdown-body .codehilite .nc { color: #36f9f6; }
+.markdown-style-cyberpunk .markdown-body .codehilite .nb, .markdown-style-cyberpunk .markdown-body .codehilite .bp { color: #fe4450; }
+.markdown-style-cyberpunk .markdown-body .codehilite .nd, .markdown-style-cyberpunk .markdown-body .codehilite .ow { color: #ff7edb; }

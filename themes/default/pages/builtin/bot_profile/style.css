@@ -282,7 +282,7 @@ body {
 
 .plugins-container {
   flex-grow: 1;
-  background-color: #fffbfc;
+  background-color: color-mix(in srgb, var(--color-background-main) 98%, var(--color-primary));
   border-radius: 18px;
   border: 3px solid var(--color-bot-profile-border-main);
   padding: 30px;

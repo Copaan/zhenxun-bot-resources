@@ -1,7 +1,7 @@
 {% extends 'components/charts/_base_chart.html' %}
 
 {% block body_content %}
-<div id="{{ data.chart_id }}" style="width: 100%; height: 100%;"></div>
+<div id="{{ data.chart_id }}" style="width: 100%; height: 100vh;"></div>
 <script type="text/javascript">
     function deepMerge(target, source) {
         for (const key in source) {

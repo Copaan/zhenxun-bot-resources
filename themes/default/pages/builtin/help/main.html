@@ -71,10 +71,12 @@
             </div>
 
             {% if loop.last %}
+            {% block info_box_image %}
             {% set random_footer = random_asset('ui/img-random') %}
             {% if random_footer %}
             <img src="{{ random_footer }}" class="info-box-deco" alt="decoration">
             {% endif %}
+            {% endblock %}
             {% endif %}
         </div>
         {% endfor %}
@@ -91,7 +93,7 @@
 {% block page_scripts %}
 <script>
     window.addEventListener('load', function () {
-        const boxes = document.querySelectorAll('.info-box');
+        const boxes = document.querySelectorAll('.help-card');
 
         boxes.forEach(function (box) {
             const decoImg = box.querySelector('.info-box-deco');
@@ -100,7 +102,7 @@
             if (decoImg && contentDiv) {
                 const contentHeight = contentDiv.offsetHeight;
 
-                const limit = contentHeight * 0.7;
+                const limit = contentHeight + 25;
 
                 decoImg.style.maxHeight = limit + 'px';
                 decoImg.style.width = 'auto';

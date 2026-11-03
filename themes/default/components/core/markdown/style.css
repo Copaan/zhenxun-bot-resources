@@ -1,0 +1,5 @@
+/* 单独渲染为图片时留出页边距，嵌入其他组件时不额外留白 */
+body > .markdown-wrapper > .markdown-body {
+    box-sizing: border-box;
+    padding: 24px 28px;
+}

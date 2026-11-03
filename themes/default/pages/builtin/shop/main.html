@@ -47,7 +47,9 @@
                                         </div>
                                     </div>
                                     <div class="goods-item-icon-center" style="margin-top: 0px;">
-                                        <img src="{{ goods.icon_url }}" class="goods-item-icon-img" />
+                                        {% if goods.icon_url %}
+                                            <img src="{{ goods.icon_url }}" class="goods-item-icon-img" />
+                                        {% endif %}
                                     </div>
                                     {% else %}
                                     <div class="goods-item-icon-center" style="margin-top: 0px; height: 100%;">

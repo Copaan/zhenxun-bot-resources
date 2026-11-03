@@ -2,246 +2,479 @@ html,
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--color-sign-page-bg);
+    background: var(--color-sign-page-bg);
 }
 
-.wrapper{
-    height: 926px;
-    width: 465px;
-    background-color: var(--color-sign-page-bg);
-    position: relative;
-    font-family: 'cr105Font';
+.wrapper {
+    --ink: var(--color-sign-primary-dark);
+    --accent: var(--color-sign-primary);
+    --line: var(--color-sign-progress-border);
+    --paper: var(--color-background-main);
+    --gold: var(--color-accent-warning);
+    --mute: color-mix(in srgb, var(--ink) 78%, var(--color-sign-page-bg));
+    --tint: color-mix(in srgb, var(--accent) 22%, var(--paper));
+    width: 480px;
+    box-sizing: border-box;
+    padding: 28px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--color-sign-page-bg);
+    color: var(--ink);
+    font-family: 'cr65sFont', 'AlibabaHealthFont2', sans-serif;
+}
+
+.who {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
 .avatar {
-    height: 120px;
-    width: 120px;
+    flex: none;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
-    margin-top: 38px;
-    margin-left: 40px;
-    box-shadow: 0 10px 10px -5px var(--color-sign-avatar-shadow);
+    object-fit: cover;
+    box-shadow: 0 0 0 3px var(--paper), 0 8px 12px -6px var(--color-sign-avatar-shadow);
 }
 
-.avatar-img {
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
+.who-text {
+    flex: 1;
+    min-width: 0;
 }
 
-.top-head {
-    width: 100%;
-    height: 179px;
-    color: var(--color-sign-nickname-text);
-}
-
-.nickname {
-    margin-top: 43px;
-    margin-left: 30px;
-    font-size: 47px;
-    width: 275px;
-    height: 67px;
+.name {
+    margin: 0;
+    font-family: 'cr105Font', 'AlibabaHealthFont2', sans-serif;
+    font-weight: normal;
+    line-height: 1.2;
+    word-break: break-all;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
 }
 
 .uid {
-    font-size: 21px;
-    position: absolute;
-    width: 255px;
-    top: 84px;
-    left: 30px;
-    font-family: 'cr105Font'
+    margin: 4px 0 0;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: var(--mute);
 }
 
-.rl-img {
-    height: 90px;
-    width: 90px;
-    position: absolute;
-    top: 27px;
-    left: 30px;
+.streak {
+    flex: none;
+    text-align: right;
 }
 
-.zx-img {
-    height:238px;
-    width: 120px;
-    left: 306px;
-    position: absolute;
-    z-index: 999;
+.streak p {
+    margin: 0;
+    font-family: 'cr105Font', sans-serif;
+    font-size: 16px;
+    line-height: 1;
 }
 
-.text-day {
-    font-size: 25px;
-    margin-left: 130px;
-    margin-top: 46px;
-    font-family: 'shFont';
+.streak b {
+    margin-right: 2px;
+    font-weight: normal;
+    font-size: 38px;
 }
 
-.text-zx {
-    font-family: 'cr65sFont';
-    position: absolute;
-    top: 72px;
-    left: 130px;
-    width: 200px;
+.streak em {
+    display: block;
+    margin-top: 3px;
+    font-style: normal;
+    font-size: 12px;
+    color: var(--mute);
 }
 
-.sign-content{
-    width: 100%;
-    height: 160px;
+.ids {
+    margin: -6px 0 0;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--mute);
+    overflow-wrap: anywhere;
+}
+
+.ids p {
+    margin: 0;
+}
+
+/* 台历：顶部色带 + 双环扣，本月网格 */
+.sheet {
     position: relative;
+    margin-top: 10px;
+    border-radius: 14px;
+    background: var(--paper);
+    box-shadow: 0 5px 0 var(--line);
 }
 
-.sign-top {
-    background-color: var(--color-sign-primary);
-    width:445px;
-    height: 150px;
+.ring {
     position: absolute;
-    left: 9px;
-    color: var(--color-sign-page-bg);
+    top: -11px;
+    width: 12px;
+    height: 28px;
+    box-sizing: border-box;
+    border: 3px solid var(--ink);
+    border-radius: 6px;
+    background: var(--color-sign-page-bg);
 }
 
-.sign-bottom {
-    background-color: var(--color-sign-primary-dark);
-    width: 445px;
-    height: 150px;
-    position: absolute;
-    top: 10px;
-    left: 15px;
+.ring-l {
+    left: 72px;
 }
 
-.qian {
-    position: absolute;
-    left: 15px;
-    top: 16px;
-    height: 132px;
+.ring-r {
+    right: 72px;
 }
 
-.sign-data{
-    width: 100%;
-    height: 207px;
-    font-family: 'kcytFont';
+.sheet-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 14px 22px 12px;
+    border-radius: 14px 14px 0 0;
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.sheet-head h2 {
+    margin: 0;
+    font-family: 'cr105Font', sans-serif;
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 1;
+}
+
+.sheet-head h2 small {
+    margin-left: 10px;
+    font-family: 'cr65sFont', sans-serif;
+    font-size: 13px;
+    color: color-mix(in srgb, var(--color-sign-page-bg) 82%, var(--ink));
+}
+
+.sheet-head p {
+    margin: 0;
+    font-size: 14px;
+    color: color-mix(in srgb, var(--color-sign-page-bg) 82%, var(--ink));
+}
+
+.sheet-head b {
+    margin: 0 2px;
+    font-family: 'cr105Font', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    color: var(--paper);
+}
+
+.weekdays,
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 0 12px;
+}
+
+.weekdays {
+    padding-top: 10px;
+}
+
+.weekdays span {
+    text-align: center;
+    font-size: 13px;
+    color: var(--mute);
+}
+
+.weekdays span:nth-child(n + 6) {
+    color: var(--accent);
+}
+
+.days {
+    row-gap: 4px;
+    padding-top: 4px;
+    padding-bottom: 14px;
+}
+
+.day {
     position: relative;
-    color: var(--color-sign-primary);
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    font-family: 'cr105Font', sans-serif;
+    font-size: 18px;
+    color: var(--mute);
 }
 
-.today-text {
-    font-size: 50px;
+.day::after {
+    content: '';
     position: absolute;
-    top: -40px;
-    left: 130px;
+    z-index: -1;
+    width: 34px;
+    height: 34px;
+    box-sizing: border-box;
+    border-radius: 50%;
 }
 
-.abs-text {
+
+.day.future {
+    opacity: 0.35;
+}
+
+.day.blank {
+    visibility: hidden;
+}
+
+.day.signed {
+    color: var(--paper);
+    opacity: 1;
+}
+
+.day.signed::after {
+    background: var(--accent);
+}
+
+/* 连续签到的相邻日期用细条连成一串 */
+.day.signed:not(:nth-child(7n)):has(+ .day.signed)::before {
+    content: '';
     position: absolute;
-    font-size: 30px;
-    z-index: 2;
-    width: 465px;
+    z-index: -1;
+    left: 50%;
+    width: 100%;
+    height: 8px;
+    background: color-mix(in srgb, var(--accent) 55%, var(--paper));
+}
+
+.day.today {
+    opacity: 1;
+}
+
+.day.today.signed::after {
+    background: var(--ink);
+    box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink);
+}
+
+.day.today:not(.signed) {
+    color: var(--ink);
+}
+
+.day.today:not(.signed)::after {
+    border: 2px dashed var(--ink);
+}
+
+/* 本次收获 */
+.gains {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.gain {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    background: var(--paper);
+}
+
+.gain b {
+    display: block;
+    font-family: 'cr105Font', sans-serif;
+    font-weight: normal;
+    font-size: 34px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.gain small {
+    margin: 0 2px;
+    font-size: 17px;
+}
+
+.gain span {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+    color: var(--mute);
+}
+
+.gain i {
+    margin-left: 6px;
+    padding: 0 6px 1px;
+    border-radius: 4px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'cr65sFont', sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 1.5;
+    vertical-align: 6px;
 }
 
 .gift {
-    text-align: center;
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 2px dashed var(--line);
+    border-radius: 12px;
+    background: var(--paper);
+    font-size: 15px;
 }
 
-
-
-.sign-text {
-    font-size: 30px;
-    position: absolute;
-    top: 60px;
-    left: 140px;
+.gift svg {
+    fill: var(--ink) !important;
 }
 
-.sign-num {
-    font-size: 30px;
-    position: absolute;
-    top: 60px;
+/* 好感等级与升级进度 */
+.level-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
 }
 
-.line {
-    background-color: var(--color-sign-divider);
-    width: 435px;
-    height: 3px;
-    margin-left: 15px;
-}
-.bottom-foot{
-    width: 100%;
-    height: 376px;
-    position: relative;
-    font-family: 'rxxxtFont';
-    color: var(--color-sign-primary);
+.level-head h2 {
+    margin: 0;
+    font-family: 'cr105Font', sans-serif;
+    font-weight: normal;
+    font-size: 26px;
 }
 
-.heart-list {
-    position: absolute;
-    top: 76px;
-    left: 15px;
-    width: 435px;
-}
-
-.heart-img {
-    height: 30px;
-    width: 30px;
-}
-
-.cur-text {
-    font-size: 32px;
-    left: 10px;
-    top: -21px;
-    position: absolute;
-}
-
-.bot-text {
-    font-size: 30px;
-    position: absolute;
-    top: 85px;
-    left: 15px;
-    width: 435px;
-}
-
-.progress-border {
-    position: absolute;
-    top: 273px;
-    left: 19px;
-    width: 313px;
-    height: 30px;
-    border: 1px solid var(--color-sign-progress-border);
-}
-.progress-bar {
-    height: 30px;
-    background-color: var(--color-sign-primary);
-}
-
-.weather-img {
-    width: 70px;
-    height: 70px;
-    position: absolute;
-    top: 37px;
-    left: 371px;
-}
-
-.mbl-img {
-    width: 132px;
-    height: 164px;
-    position: absolute;
-    top: 145px;
-    left: 333px;
-}
-
-.wd{
-    position: absolute;
-    font-size: 35px;
-    top: 60px;
-    left: 377px;
-}
-
-.date {
-    position: absolute;
+.level-head h2 span {
+    margin-left: 8px;
     font-size: 20px;
-    top: 350px;
-    left: 250px;
-    font-family: 'rxxxtFont';
-    width: 210px;
+    color: var(--accent);
+}
+
+.level-head p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--mute);
+}
+
+.meter {
+    position: relative;
+    box-sizing: border-box;
+    height: 18px;
+    margin: 40px 12px 0;
+    border: 2px solid var(--line);
+    border-radius: 9px;
+    background: var(--paper);
+}
+
+.meter-fill {
+    width: calc(var(--p) * 1%);
+    min-width: 14px;
+    height: 100%;
+    border-radius: 7px;
+    background: var(--accent);
+}
+
+.meter::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(var(--p) * 1%);
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    box-sizing: border-box;
+    border: 4px solid var(--ink);
+    border-radius: 50%;
+    background: var(--paper);
+}
+
+.meter::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: calc(var(--p) * 1%);
+    margin-left: -5px;
+    border: 5px solid transparent;
+    border-top-color: var(--ink);
+    border-bottom: 0;
+}
+
+.meter-now {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: clamp(34px, calc(var(--p) * 1%), calc(100% - 34px));
+    transform: translateX(-50%);
+    padding: 2px 10px 3px;
+    border-radius: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'cr105Font', sans-serif;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.meter-ends {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 12px 6px 0;
+    font-family: 'cr105Font', sans-serif;
+    font-size: 15px;
+    color: var(--mute);
+}
+
+.goal {
+    font-family: 'cr65sFont', sans-serif;
+    font-size: 14px;
+}
+
+.goal em {
+    font-style: normal;
+    font-family: 'cr105Font', sans-serif;
+    font-size: 19px;
+    color: var(--ink);
+}
+
+/* 真寻寄语 */
+.say {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 2px;
+}
+
+.mahiro {
+    flex: none;
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--tint);
+    box-shadow: 0 0 0 3px var(--paper);
+}
+
+.bubble {
+    position: relative;
+    flex: 1;
+    margin: 0;
+    padding: 12px 16px 13px;
+    border-radius: 14px;
+    background: var(--paper);
+    font-size: 17px;
+    line-height: 1.45;
+}
+
+.bubble::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    margin-top: -8px;
+    border: 8px solid transparent;
+    border-left: 0;
+    border-right-color: var(--paper);
 }
