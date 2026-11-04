@@ -27,14 +27,29 @@
                 <span>{{ category.title }}</span>
             </div>
 
-            {% set items_list = category['items'] %}
-            {% for item in items_list %}
-            <div class="item-card">
-                <h4>{{ item.name }}</h4>
-                <div class="markdown-content">{{ item.description | md | safe }}</div>
-                <div class="usage markdown-content">{{ item.usage | md | safe }}</div>
-            </div>
+            {% set ns = namespace(left=[], right=[], left_weight=0, right_weight=0) %}
+            {% for item in category['items'] %}
+                {% set text = (item.description or '') ~ (item.usage or '') %}
+                {% set weight = 4 + text | length / 40 + text.count('\n') %}
+                {% if ns.left_weight <= ns.right_weight %}
+                    {% set ns.left = ns.left + [item] %}{% set ns.left_weight = ns.left_weight + weight %}
+                {% else %}
+                    {% set ns.right = ns.right + [item] %}{% set ns.right_weight = ns.right_weight + weight %}
+                {% endif %}
             {% endfor %}
+            <div class="category-columns">
+                {% for column in (ns.left, ns.right) %}
+                <div class="category-column">
+                    {% for item in column %}
+                    <div class="item-card">
+                        <h4>{{ item.name }}</h4>
+                        <div class="markdown-content">{{ item.description | md | safe }}</div>
+                        <div class="usage markdown-content">{{ item.usage | md | safe }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
 
             {% endfor %}
 

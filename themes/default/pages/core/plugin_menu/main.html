@@ -52,19 +52,21 @@
         'var-rose', 'var-teal', 'var-indigo', 'var-slate', 'var-cyan'
         ] %}
 
-        {% for category in data.categories %}
-        {% set current_color = colors[loop.index0 % colors|length] %}
+        {% for column in data.columns %}
+        <div class="menu-column">
+        {% for category in column %}
+        {% set current_color = colors[category.color_index % colors|length] %}
         <div class="category-card {{ current_color }}">
             <div class="cat-header">
-                <div class="cat-title">{{ category.name }}</div>
-                <div class="cat-count">{{ category.items | length }}</div>
+                <div class="cat-title">{{ category.name }}{% if category.continued %}<span class="cat-continued">续</span>{% endif %}</div>
+                <div class="cat-count">{{ category.count }}</div>
             </div>
 
             <div class="plugin-list">
-                {% if category.items | length == 0 %}
+                {% if category.plugins | length == 0 %}
                 <div style="text-align: center; padding: 20px; color: #ccc; font-size: 13px;">暂无功能</div>
                 {% else %}
-                {% for item in category.items %}
+                {% for item in category.plugins %}
                 <div class="plugin-item {% if item.status != 0 %}disabled{% endif %}">
                     <span class="p-id">{{ item.id }}</span>
 
@@ -81,7 +83,7 @@
 
                     <div class="badges">
                         {% if item.status == 3 %}
-                        <span class="badge status-global" title="全局关闭">⊘</span>
+                        <span class="badge status-global" title="全局关闭"><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="3.4" y1="12.6" x2="12.6" y2="3.4" stroke="currentColor" stroke-width="1.5"/></svg></span>
                         {% elif item.status == 2 %}
                         <span class="badge status-su" title="系统锁定">🔒</span>
                         {% elif item.status == 1 %}
@@ -92,6 +94,8 @@
                 {% endfor %}
                 {% endif %}
             </div>
+        </div>
+        {% endfor %}
         </div>
         {% endfor %}
     </div>

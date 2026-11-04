@@ -168,8 +168,9 @@ body {
 }
 
 .masonry-container {
-  column-count: 2;
-  column-gap: 25px;
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
 
   padding: 30px 25px;
 
@@ -178,9 +179,13 @@ body {
   z-index: 1;
 }
 
+.menu-column {
+  flex: 1;
+  min-width: 0;
+}
+
 .category-card {
-  break-inside: avoid-column;
-  display: inline-block;
+  display: block;
   width: 100%;
   margin-bottom: 35px;
 
@@ -268,6 +273,14 @@ body {
 }
 .cat-title::before {
   display: none;
+}
+
+.cat-continued {
+  font-family: sans-serif;
+  font-size: 12px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.28);
 }
 
 .cat-count {

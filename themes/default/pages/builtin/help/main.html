@@ -7,6 +7,9 @@
 {% block title %}{{ data.title }}{% endblock %}
 
 {% block page_styles %}
+<style>
+    {% include './style.css' %}
+</style>
 {% endblock %}
 
 {% block body_content %}
@@ -64,12 +67,6 @@
                 </h2>
             </div>
 
-            <div class="section-content">
-                {% for line in section.content %}
-                <div class="markdown-content">{{ line | md | safe }}</div>
-                {% endfor %}
-            </div>
-
             {% if loop.last %}
             {% block info_box_image %}
             {% set random_footer = random_asset('ui/img-random') %}
@@ -78,6 +75,12 @@
             {% endif %}
             {% endblock %}
             {% endif %}
+
+            <div class="section-content">
+                {% for line in section.content %}
+                <div class="markdown-content">{{ line | md | safe }}</div>
+                {% endfor %}
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -88,26 +91,4 @@
 {% endblock %}
 
 {% block footer %}
-{% endblock %}
-
-{% block page_scripts %}
-<script>
-    window.addEventListener('load', function () {
-        const boxes = document.querySelectorAll('.help-card');
-
-        boxes.forEach(function (box) {
-            const decoImg = box.querySelector('.info-box-deco');
-            const contentDiv = box.querySelector('.section-content');
-
-            if (decoImg && contentDiv) {
-                const contentHeight = contentDiv.offsetHeight;
-
-                const limit = contentHeight + 25;
-
-                decoImg.style.maxHeight = limit + 'px';
-                decoImg.style.width = 'auto';
-            }
-        });
-    });
-</script>
 {% endblock %}

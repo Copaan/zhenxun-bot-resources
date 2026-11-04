@@ -42,7 +42,7 @@
     <section class="sheet">
         <i class="ring ring-l"></i><i class="ring ring-r"></i>
         <div class="sheet-head">
-            <h2>{{ stamp[5:7] | int }}月{{ stamp[8:10] | int }}日<small class="lunar" data-date="{{ stamp[:10] }}"></small></h2>
+            <h2>{{ stamp[5:7] | int }}月{{ stamp[8:10] | int }}日{% if data.page.lunar %}<small class="lunar">{{ data.page.lunar }}</small>{% endif %}</h2>
             <p>本月签到 <b>{{ hist.month_count }}</b> 天</p>
         </div>
         <div class="weekdays">
@@ -51,7 +51,9 @@
         <div class="days">
             {% for _ in range(hist.offset) %}<span class="day blank"></span>{% endfor %}
             {% for d in hist.days %}
-            <span class="day {{ d.state }}{% if d.today %} today{% endif %}">{{ d.day }}</span>
+            {% set following = hist.days[loop.index] if not loop.last else none %}
+            {% set linked = d.state == 'signed' and following and following.state == 'signed' and (hist.offset + loop.index) % 7 %}
+            <span class="day {{ d.state }}{% if d.today %} today{% endif %}{% if linked %} linked{% endif %}">{{ d.day }}</span>
             {% endfor %}
         </div>
     </section>
@@ -113,25 +115,3 @@
 {% endblock %}
 
 {% block footer %}{% endblock %}
-
-{% block page_scripts %}
-<script>
-    document.querySelectorAll('.lunar').forEach(function (node) {
-        try {
-            var parts = new Intl.DateTimeFormat('zh-CN-u-ca-chinese', {
-                timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric'
-            }).formatToParts(new Date(node.dataset.date + 'T00:00:00Z'));
-            var get = function (type) {
-                var part = parts.find(function (p) { return p.type === type; });
-                return part ? part.value : '';
-            };
-            var day = parseInt(get('day'), 10);
-            var name = { 10: '初十', 20: '二十', 30: '三十' }[day]
-                || '初十廿三'[Math.floor(day / 10)] + '一二三四五六七八九'[day % 10 - 1];
-            node.textContent = '农历' + get('yearName') + '年 ' + get('month') + name;
-        } catch (e) {
-            node.remove();
-        }
-    });
-</script>
-{% endblock %}

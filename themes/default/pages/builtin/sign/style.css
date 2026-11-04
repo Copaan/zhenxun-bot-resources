@@ -236,7 +236,7 @@ body {
 }
 
 /* 连续签到的相邻日期用细条连成一串 */
-.day.signed:not(:nth-child(7n)):has(+ .day.signed)::before {
+.day.linked::before {
     content: '';
     position: absolute;
     z-index: -1;

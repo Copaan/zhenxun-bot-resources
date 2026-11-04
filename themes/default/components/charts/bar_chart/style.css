@@ -1,7 +1,6 @@
 .page-wrapper {
     position: relative;
     width: 100%;
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +17,7 @@
     z-index: 1;
     background:
         radial-gradient(circle at 18% 16%, rgba(56, 189, 248, 0.18), transparent 30%),
-        linear-gradient(90deg, rgba(2, 6, 23, 0.66), rgba(15, 23, 42, 0.42));
+        linear-gradient(90deg, rgba(2, 6, 23, 0.8), rgba(15, 23, 42, 0.66));
     pointer-events: none;
 }
 

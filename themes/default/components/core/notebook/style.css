@@ -20,10 +20,7 @@
 /* 标题样式 */
 .notebook-title {
   font-size: 36px;
-  background: linear-gradient(to right, #f67186, #f7889c);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #f67186;
   margin: 0 0 20px 0;
   text-align: center;
 }
@@ -31,10 +28,7 @@
 /* 多级标题 */
 .notebook-heading-1 {
   font-size: 2.2em;
-  background: linear-gradient(to right, #f67186, #f7889c);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #f67186;
   margin: 1.5em 0 0.8em 0;
   padding-bottom: 0.3em;
   border-bottom: 2px solid #f8d0d6;
@@ -125,7 +119,7 @@
 /* 引用块 */
 .notebook-quote {
   background: rgba(255, 240, 242, 0.3);
-  border-left: 4px solid #f7889c;
+  box-shadow: inset 4px 0 0 #f7889c;
   color: #666;
   padding: 1em 1.5em;
   margin: 1.2em 0;

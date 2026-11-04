@@ -31,6 +31,8 @@ body {
     position: relative;
     padding: 0 30px;
     margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .main {
@@ -48,8 +50,10 @@ body {
     width: max-content;
     border-radius: 20px;
     padding: 0 10px;
-    float: left;
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .title-n {
@@ -75,6 +79,8 @@ body {
 .network {
     display: flex;
     margin-left: 10px;
+    margin-top: 4px;
+    height: 32px;
 }
 
 .network-item {

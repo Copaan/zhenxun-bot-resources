@@ -4,10 +4,8 @@
 #}
 {% macro soft_card(class='', style='') %}
 <div class="{{ class }}" style="position: relative; {{ style }}">
-    <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;">
-        <rect x="8" y="8" width="calc(100% - 10px)" height="calc(100% - 10px)" rx="16" fill="var(--color-background-card, #fce4ec)" />
-        <rect x="2" y="2" width="calc(100% - 10px)" height="calc(100% - 10px)" rx="16" fill="var(--color-background-main, #fff)" stroke="var(--color-primary, #f67186)" stroke-width="2" />
-    </svg>
+    <div style="position: absolute; top: 8px; left: 8px; right: 2px; bottom: 2px; border-radius: 16px; background: var(--color-background-card, #fce4ec); z-index: 0;"></div>
+    <div style="position: absolute; top: 2px; left: 2px; right: 8px; bottom: 8px; border-radius: 16px; background: var(--color-background-main, #fff); border: 2px solid var(--color-primary, #f67186); z-index: 0;"></div>
     <div style="position: relative; z-index: 10; padding: 24px;">
         {{ caller() }}
     </div>
@@ -294,7 +292,7 @@
 
 {# 13. 现代通知 (Notification Toast) #}
 {% macro box_toast(class='', style='', accent_color='var(--color-primary)') %}
-<div class="{{ class }}" style="position: relative; padding: 16px 16px 16px 24px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); border-left: 4px solid {{ accent_color }}; {{ style }}">
+<div class="{{ class }}" style="position: relative; padding: 16px 16px 16px 24px; background-color: #fff; border-radius: 8px; box-shadow: inset 4px 0 0 {{ accent_color }}, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); {{ style }}">
     {{ caller() }}
 </div>
 {% endmacro %}

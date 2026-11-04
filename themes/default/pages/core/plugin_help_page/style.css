@@ -30,12 +30,20 @@ body {
 
 .content {
     padding: 20px;
-    column-count: 2;
-    column-gap: 20px;
+}
+
+.category-columns {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.category-column {
+    flex: 1;
+    min-width: 0;
 }
 
 .category-header {
-    column-span: all;
     display: flex;
     align-items: center;
     background-color: var(--color-plugin-help-page-category-bg); /* #f8bbd0 */
@@ -65,9 +73,6 @@ body {
     border: 1px solid var(--color-plugin-help-page-card-border); /* #fce4ec */
     padding: 15px;
     margin-bottom: 20px;
-    break-inside: avoid;
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
 }
 
 

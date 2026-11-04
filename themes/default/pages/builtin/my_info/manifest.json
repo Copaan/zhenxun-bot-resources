@@ -4,7 +4,7 @@
   "entrypoint": "main.html",
   "render_options": {
     "viewport": {
-      "width": 1754,
+      "width": 1834,
         "height": 10
     }
   }

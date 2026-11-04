@@ -10,8 +10,27 @@
     line-height: 1.6;
 }
 
-.list-container li::marker {
+ol.list-container li::marker {
     color: var(--color-primary);
     font-weight: bold;
     font-size: 1.1em;
+}
+
+ul.list-container {
+    list-style: none;
+}
+
+ul.list-container li {
+    position: relative;
+}
+
+ul.list-container li::before {
+    content: "";
+    position: absolute;
+    left: -0.3em;
+    top: 1.25em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
 }

@@ -7,6 +7,7 @@
     border-radius: 16px;
     box-shadow: 0 8px 32px 0 rgba(246, 113, 134, 0.2);
     overflow: hidden;
+    z-index: 0;
     color: var(--color-text-dark);
 }
 
