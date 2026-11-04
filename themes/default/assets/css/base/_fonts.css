@@ -50,25 +50,25 @@
 /* 签到卡片字体 */
 @font-face {
     font-family: cr105Font;
-    src: url("{{ asset('fonts/ChillReunion_105S.woff2') }}");
+    src: url("{{ asset('fonts/ChillReunion_105S.otf') }}");
 }
 
 @font-face {
     font-family: cr65sFont;
-    src: url("{{ asset('fonts/ChillReunion_65S.woff2') }}");
+    src: url("{{ asset('fonts/ChillReunion_65S.otf') }}");
 }
 
 @font-face {
     font-family: shFont;
-    src: url("{{ asset('fonts/SourceHanSansSC-Bold.woff2') }}");
+    src: url("{{ asset('fonts/SourceHanSansSC-Bold.otf') }}");
 }
 
 @font-face {
     font-family: rxxxtFont;
-    src: url("{{ asset('fonts/rxxxkat.woff2') }}");
+    src: url("{{ asset('fonts/rxxxkat.ttf') }}");
 }
 
 @font-face {
     font-family: kcytFont;
-    src: url("{{ asset('fonts/jcyt.woff2') }}");
+    src: url("{{ asset('fonts/jcyt.ttf') }}");
 }
