@@ -40,7 +40,7 @@
 
 {# 33. 云朵气泡 (Cloud Bubble) #}
 {% macro box_cloud_soft(class='', style='', bg='#f0f9ff') %}
-<div class="{{ class }}" style="position: relative; padding: 24px; background: {{ bg }}; border-radius: 20px; box-shadow: 4px 4px 0px #bde0fe; {{ style }}">
+<div class="{{ class }}" style="position: relative; padding: 24px; background: {{ bg }}; border-radius: 20px; box-shadow: 4px 4px 0.5px #bde0fe; {{ style }}">
     {{ caller() }}
 </div>
 {% endmacro %}
@@ -292,7 +292,7 @@
 
 {# 13. 现代通知 (Notification Toast) #}
 {% macro box_toast(class='', style='', accent_color='var(--color-primary)') %}
-<div class="{{ class }}" style="position: relative; padding: 16px 16px 16px 24px; background-color: #fff; border-radius: 8px; box-shadow: inset 4px 0 0 {{ accent_color }}, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); {{ style }}">
+<div class="{{ class }}" style="position: relative; padding: 16px 16px 16px 24px; background-color: #fff; border-radius: 8px; box-shadow: inset 4px 0 0.5px {{ accent_color }}, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); {{ style }}">
     {{ caller() }}
 </div>
 {% endmacro %}

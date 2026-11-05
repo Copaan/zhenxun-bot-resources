@@ -7,7 +7,7 @@
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 10px;
-  box-shadow: inset 4px 0 0 var(--color-mahiro-bank-accent), 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 4px 0 0.5px var(--color-mahiro-bank-accent), 0 2px 4px rgba(0, 0, 0, 0.05);
   position: relative;
 }
 

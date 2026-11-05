@@ -34,9 +34,12 @@ body {
     flex: none;
     width: 58px;
     height: 58px;
+    box-sizing: content-box;
+    margin: -3px;
+    border: 3px solid var(--paper);
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 0 0 3px var(--paper), 0 8px 12px -6px var(--color-sign-avatar-shadow);
+    box-shadow: 0 8px 12px -6px var(--color-sign-avatar-shadow);
 }
 
 .who-text {
@@ -107,7 +110,7 @@ body {
     margin-top: 10px;
     border-radius: 14px;
     background: var(--paper);
-    box-shadow: 0 5px 0 var(--line);
+    box-shadow: 0 5px 0.5px var(--line);
 }
 
 .ring {
@@ -251,8 +254,11 @@ body {
 }
 
 .day.today.signed::after {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--paper);
     background: var(--ink);
-    box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink);
+    outline: 2px solid var(--ink);
 }
 
 .day.today:not(.signed) {
@@ -454,7 +460,7 @@ body {
     border-radius: 50%;
     object-fit: cover;
     background: var(--tint);
-    box-shadow: 0 0 0 3px var(--paper);
+    outline: 3px solid var(--paper);
 }
 
 .bubble {
