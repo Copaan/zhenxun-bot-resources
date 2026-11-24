@@ -24,6 +24,15 @@ body {
     font-family: 'cr65sFont', 'AlibabaHealthFont2', sans-serif;
 }
 
+.wrapper.night {
+    --color-sign-page-bg: #17141f;
+    --ink: #f8dce8;
+    --accent: #f06292;
+    --line: #3a3150;
+    --paper: #252033;
+    --gold: #ffc857;
+}
+
 .who {
     display: flex;
     align-items: center;
@@ -193,7 +202,7 @@ body {
 }
 
 .days {
-    row-gap: 4px;
+    row-gap: 17px;
     padding-top: 4px;
     padding-bottom: 14px;
 }
@@ -222,7 +231,11 @@ body {
 
 
 .day.future {
-    opacity: 0.35;
+    color: color-mix(in srgb, var(--mute) 35%, var(--paper));
+}
+
+.day.future .tag {
+    opacity: 0.6;
 }
 
 .day.blank {
@@ -483,4 +496,73 @@ body {
     border: 8px solid transparent;
     border-left: 0;
     border-right-color: var(--paper);
+}
+
+.say.with-figure {
+    position: relative;
+    min-height: 136px;
+    margin-bottom: -26px;
+    padding: 0 132px 26px 0;
+}
+
+.say .figure {
+    position: absolute;
+    right: -8px;
+    bottom: 0;
+    height: 156px;
+    max-width: 160px;
+    object-fit: contain;
+    object-position: bottom;
+    filter: drop-shadow(0 0 3px rgba(149, 59, 80, 0.28));
+}
+
+.with-figure .bubble::before {
+    left: auto;
+    right: -8px;
+    border: 8px solid transparent;
+    border-right: 0;
+    border-left-color: var(--paper);
+}
+
+.night .say .figure {
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.45));
+}
+
+/* 节日名与法定放假/调休角标 */
+.day .fest {
+    position: absolute;
+    top: calc(100% - 4px);
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'AlibabaHealthFont2', sans-serif;
+    font-size: 10px;
+    line-height: 12px;
+    white-space: nowrap;
+    color: var(--accent);
+}
+
+.day.today .fest {
+    top: calc(100% + 3px);
+}
+
+.day .tag {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    font-family: 'AlibabaHealthFont2', sans-serif;
+    font-style: normal;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+    background: var(--accent);
+    color: #fff;
+}
+
+.day .tag.work {
+    background: var(--mute);
 }

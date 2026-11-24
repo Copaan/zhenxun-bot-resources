@@ -12,7 +12,7 @@
 
 {% block body_content %}
 
-<div class="wrapper">
+<div class="wrapper{% if data.night %} night{% endif %}">
     {{ patterns.bg_sprinkles(color='#FF9A9E', opacity=0.15, size=50) }}
 
     <div class="header">
@@ -100,7 +100,7 @@
         {% endfor %}
     </div>
 
-    {% set random_footer = random_asset('ui/img-random') %}
+    {% set random_footer = random_asset('ui/mahiro/night' if data.night else 'ui/mahiro/day') %}
     {% if random_footer %}
     <img src="{{ random_footer }}" class="footer-deco" alt="decoration">
     {% endif %}

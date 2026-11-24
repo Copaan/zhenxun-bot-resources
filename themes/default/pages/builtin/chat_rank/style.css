@@ -1,0 +1,354 @@
+.page {
+  --bg: #fdeef3;
+  --card: #fff;
+  --ink: #3a2a33;
+  --title: #c2185b;
+  --mute: #a08a95;
+  --track: #fce4ec;
+  --fill: linear-gradient(90deg, #f8bbd0, #f06292);
+  --hero-bg: linear-gradient(120deg, #f06292 0%, #f48fb1 60%, #f8bbd0 100%);
+  --hero-ink: #fff;
+  --stat-bg: rgba(255, 255, 255, 0.22);
+  --gold: #ffb300;
+  --silver: #9fb0ba;
+  --bronze: #d7955b;
+  --shadow: 0 4px 14px rgba(173, 20, 87, 0.08);
+
+  width: 640px;
+  box-sizing: border-box;
+  padding: 20px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "AlibabaHealthFont2", sans-serif;
+}
+
+.page.night {
+  --bg: #15131c;
+  --card: #1e1a28;
+  --ink: #e9e3ef;
+  --title: #f48fb1;
+  --mute: #a99fb8;
+  --track: #2c2539;
+  --fill: linear-gradient(90deg, #6b3a5a, #f48fb1);
+  --hero-bg: radial-gradient(circle at 0% 0%, rgba(240, 98, 146, 0.35), transparent 55%),
+    linear-gradient(135deg, #241f31, #1b1826);
+  --hero-ink: #f8dce8;
+  --stat-bg: #201c2b;
+  --gold: #ffc857;
+  --silver: #cfd8dc;
+  --bronze: #e0a370;
+  --shadow: none;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.page.with-figure {
+  padding-top: 70px;
+}
+
+.hero {
+  position: relative;
+  padding: 22px 24px;
+  border-radius: 18px;
+  background: var(--hero-bg);
+  color: var(--hero-ink);
+  box-shadow: var(--shadow);
+}
+
+.night .hero {
+  border: 1px solid #3a3150;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 2px;
+  opacity: 0.9;
+}
+
+.night .kicker {
+  color: #f48fb1;
+}
+
+.hero h1 {
+  margin: 4px 0 4px;
+  font-size: 30px;
+}
+
+.range {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.stats div {
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: var(--stat-bg);
+}
+
+.night .stats div {
+  border: 1px solid #3a3150;
+}
+
+.stats b {
+  display: inline-block;
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+.night .stats b {
+  color: #7fe3d4;
+}
+
+.stats span {
+  font-size: 12px;
+}
+
+.figure {
+  position: absolute;
+  right: 18px;
+  bottom: 0;
+  height: 200px;
+  max-width: 200px;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+.avatar {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--track);
+}
+
+.quit {
+  font-size: 11px;
+  color: var(--mute);
+}
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.pod {
+  --c: var(--bronze);
+  position: relative;
+  width: 172px;
+  text-align: center;
+}
+
+.pod.p1 { --c: var(--gold); }
+.pod.p2 { --c: var(--silver); }
+
+.pod .avatar {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  border: 4px solid var(--c);
+}
+
+.pod.p1 .avatar {
+  width: 92px;
+  height: 92px;
+}
+
+.medal {
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  margin-left: 22px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  border-radius: 50%;
+  background: var(--c);
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.p1 .medal { margin-left: 32px; }
+
+.pod .name {
+  margin: 8px 0 0;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pod .num {
+  margin: 2px 0 8px;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--title);
+}
+
+.pod .num small {
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--mute);
+}
+
+.step {
+  height: 46px;
+  border-radius: 14px 14px 0 0;
+  background: color-mix(in srgb, var(--c) 30%, var(--card));
+  border-top: 4px solid var(--c);
+}
+
+.p1 .step { height: 72px; }
+.p3 .step { height: 30px; }
+
+.list {
+  padding: 6px 18px;
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+}
+
+.row + .row {
+  border-top: 1px dashed var(--track);
+}
+
+.no {
+  width: 26px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--mute);
+}
+
+.row .avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.mid {
+  flex: 1;
+  min-width: 0;
+}
+
+.mid .name {
+  margin: 0 0 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--fill);
+}
+
+.count {
+  width: 60px;
+  text-align: right;
+  font-size: 17px;
+  color: var(--title);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.card {
+  --c: var(--silver);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px 10px 10px;
+  border-radius: 14px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.card.r1 {
+  --c: var(--gold);
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background: color-mix(in srgb, var(--gold) 12%, var(--card));
+}
+
+.card .no {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  background: var(--c);
+  color: #fff;
+  font-size: 15px;
+}
+
+.card .avatar {
+  width: 44px;
+  height: 44px;
+}
+
+.card.r1 .avatar {
+  width: 56px;
+  height: 56px;
+  border: 3px solid var(--gold);
+}
+
+.line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.line .name {
+  flex: 1;
+  margin: 0;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card.r1 .name {
+  font-size: 17px;
+}
+
+.line .count {
+  width: auto;
+  font-size: 18px;
+}
+
+.card.r1 .count {
+  font-size: 22px;
+}

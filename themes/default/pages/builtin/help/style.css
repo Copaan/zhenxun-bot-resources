@@ -374,3 +374,36 @@ body {
   color: var(--color-text-dark);
   font-weight: 500;
 }
+
+.wrapper.night {
+  --color-primary: #f48fb1;
+  --color-primary-dark: #f8bbd0;
+  --color-background-main: #1e1a28;
+  --color-background-card: #15131c;
+  --color-text-dark: #e9e3ef;
+  --color-text-muted: #a99fb8;
+  --color-border-light: #332b45;
+  border-color: #332b45;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+.night .help-card,
+.night .meta-item {
+  border-color: #332b45;
+  box-shadow: none;
+}
+.night .section-header {
+  border-bottom-color: #332b45;
+}
+.night .title-icon {
+  box-shadow: 0 0 10px rgba(240, 98, 146, 0.45);
+}
+.night .section-content .markdown-content pre {
+  background-color: #14111b;
+  color: #d6f5ef;
+}
+.night .section-content .markdown-content tr:nth-child(2n) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.night .divider {
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+}

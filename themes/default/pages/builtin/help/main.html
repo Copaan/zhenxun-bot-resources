@@ -13,7 +13,8 @@
 {% endblock %}
 
 {% block body_content %}
-<div class="wrapper">
+{% if data.night %}<style>body { background-color: #15131c; }</style>{% endif %}
+<div class="wrapper{% if data.night %} night{% endif %}">
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
 
@@ -69,7 +70,7 @@
 
             {% if loop.last %}
             {% block info_box_image %}
-            {% set random_footer = random_asset('ui/img-random') %}
+            {% set random_footer = random_asset('ui/mahiro/night' if data.night else 'ui/mahiro/day') %}
             {% if random_footer %}
             <img src="{{ random_footer }}" class="info-box-deco" alt="decoration">
             {% endif %}

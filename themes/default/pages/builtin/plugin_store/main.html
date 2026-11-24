@@ -1,0 +1,57 @@
+{% extends 'partials/_base.html' %}
+
+{% block title %}{{ data.title }}{% endblock %}
+
+{% block page_styles %}
+<style>
+    {% include './style.css' %}
+</style>
+{% endblock %}
+
+{% block body_content %}
+{% if data.night %}
+{% set figures = ['night/149001105.webp', 'night/123430532.webp', 'night/131520918-0.webp', 'night/127657930.webp', 'night/127579503.webp'] %}
+{% else %}
+{% set figures = ['day/127277055.webp', 'day/114293683.webp', 'day/126833712.webp', 'day/130444369.webp', 'day/133934441.webp', 'day/139187245.webp', 'day/140184320.webp', 'day/145120555.webp'] %}
+{% endif %}
+{% set figure = asset('ui/mahiro/' ~ (figures | random)) %}
+<div class="page{% if data.night %} night{% endif %}{% if figure %} with-figure{% endif %}">
+    <header class="hero">
+        <div>
+            <p class="kicker">{{ data.bot_nickname }} · Plugin Store</p>
+            <h1>{{ data.title }}</h1>
+            <p class="sub">发送 <b>添加插件 ID</b> 安装，<b>更新插件 ID</b> 更新，<b>搜索插件 关键词</b> 查找</p>
+        </div>
+        <div class="stats">
+            <div><b>{{ data.total }}</b><span>插件</span></div>
+            <div><b>{{ data.installed }}</b><span>已安装</span></div>
+            <div><b>{{ data.updates }}</b><span>可更新</span></div>
+        </div>
+        {% if figure %}<img class="figure" src="{{ figure }}" alt="">{% endif %}
+    </header>
+
+    {% for s in data.sections %}
+    <h2 class="cat"><i></i>{{ s.title }}<em>{{ s['items'] | length }}</em></h2>
+    <div class="cards">
+        {% for p in s['items'] %}
+        <article class="card{% if p.installed %} on{% endif %}">
+            <div class="top">
+                <span class="id">#{{ p.id }}</span>
+                <h3>{{ p.name }}</h3>
+                {% if p.new_version %}<span class="badge up">可更新</span>{% elif p.installed %}<span class="badge ok">已安装</span>{% endif %}
+            </div>
+            <p class="desc">{{ p.description }}</p>
+            <div class="meta">
+                <span class="type t-{{ p.type }}">{{ p.type_name }}</span>
+                <span class="author">{{ p.author }}</span>
+                <span class="ver">v{{ p.version }}{% if p.new_version %} → v{{ p.new_version }}{% endif %}</span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% include 'partials/_footer.html' %}
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

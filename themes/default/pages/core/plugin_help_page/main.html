@@ -3,58 +3,70 @@
 {% block title %}{{ data.page_title }}{% endblock %}
 
 {% block page_styles %}
-    <style>
-        {# Import the page-specific styles, which in turn can import component styles #}
-        {% include './style.css' %}
-    </style>
+<style>
+    {% include './style.css' %}
+</style>
 {% endblock %}
 
 {% block body_content %}
+{% if data.night %}
+{% set figures = ['night/149001105.webp', 'night/123430532.webp', 'night/131520918-0.webp', 'night/127657930.webp', 'night/127579503.webp'] %}
+{% else %}
+{% set figures = ['day/114293683.webp', 'day/126833712.webp', 'day/127277055.webp', 'day/130444369.webp', 'day/133934441.webp', 'day/138494183.webp', 'day/139187245.webp', 'day/140184320.webp', 'day/145120555.webp', 'day/147438979.webp'] %}
+{% endif %}
+{% set figure = asset('ui/mahiro/' ~ (figures | random)) %}
+<div class="page{% if data.night %} night{% endif %}{% if figure %} with-figure{% endif %}">
+    {% set total = namespace(n=0) %}
+    {% for c in data.categories %}{% set total.n = total.n + c['items'] | length %}{% endfor %}
     <div class="container">
-        <div class="header">
-            <h1>{{ data.bot_nickname }}</h1>
-            <p>{{ data.page_title }}</p>
-        </div>
-        <div class="content">
-
-
-            {% for category in data.categories if data and data.categories %}
-
-            <div class="category-header">
-                <svg viewBox="0 0 24 24">
-                    <path d="{{ category.icon_svg_path }}"></path>
-                </svg>
-                <span>{{ category.title }}</span>
+        <header class="hero">
+            <div>
+                <p class="kicker">{{ data.bot_nickname }}</p>
+                <h1>{{ data.page_title }}</h1>
             </div>
+            {% if figure %}<img class="figure" src="{{ figure }}" alt="">{% endif %}
+            <div class="stats">
+                <div><b>{{ total.n }}</b><span>项功能</span></div>
+                <div><b>{{ data.categories | length }}</b><span>个分类</span></div>
+            </div>
+        </header>
 
-            {% set ns = namespace(left=[], right=[], left_weight=0, right_weight=0) %}
-            {% for item in category['items'] %}
-                {% set text = (item.description or '') ~ (item.usage or '') %}
-                {% set weight = 4 + text | length / 40 + text.count('\n') %}
-                {% if ns.left_weight <= ns.right_weight %}
-                    {% set ns.left = ns.left + [item] %}{% set ns.left_weight = ns.left_weight + weight %}
-                {% else %}
-                    {% set ns.right = ns.right + [item] %}{% set ns.right_weight = ns.right_weight + weight %}
-                {% endif %}
-            {% endfor %}
-            <div class="category-columns">
-                {% for column in (ns.left, ns.right) %}
-                <div class="category-column">
-                    {% for item in column %}
-                    <div class="item-card">
-                        <h4>{{ item.name }}</h4>
-                        <div class="markdown-content">{{ item.description | md | safe }}</div>
-                        <div class="usage markdown-content">{{ item.usage | md | safe }}</div>
-                    </div>
-                    {% endfor %}
-                </div>
+        <nav class="index">
+            {% for c in data.categories %}{% for item in c['items'] %}<span>{{ item.name }}</span>{% endfor %}{% endfor %}
+        </nav>
+
+        {% for c in data.categories %}
+        <h2 class="cat">
+            <svg viewBox="0 0 24 24"><path d="{{ c.icon_svg_path }}"/></svg>{{ c.title }}<em>{{ c['items'] | length }}</em>
+        </h2>
+        {# 按估算高度把卡片依次放进当前最矮的一列 #}
+        {% set ns = namespace(cols=[], w=[]) %}
+        {% for _ in range(3) %}{% set ns.cols = ns.cols + [[]] %}{% set ns.w = ns.w + [0] %}{% endfor %}
+        {% for item in c['items'] %}
+            {% set text = (item.description or '') ~ (item.usage or '') %}
+            {% set weight = namespace(v=3) %}
+            {% for line in text.split('\n') %}{% set weight.v = weight.v + 1 + (line | length) // 26 %}{% endfor %}
+            {% set idx = ns.w.index(ns.w | min) %}
+            {% set _ = ns.cols[idx].append(item) %}
+            {% set ns.w = ns.w[:idx] + [ns.w[idx] + weight.v] + ns.w[idx + 1:] %}
+        {% endfor %}
+        <div class="cols">
+            {% for column in ns.cols %}
+            <div class="col">
+                {% for item in column %}
+                <article class="card">
+                    <h3>{{ item.name }}</h3>
+                    <div class="desc">{{ item.description | md | safe }}</div>
+                    {% if item.usage %}<div class="usage">{{ item.usage | md | safe }}</div>{% endif %}
+                </article>
                 {% endfor %}
             </div>
-
             {% endfor %}
-
         </div>
-        <div style="height: 1px; background: #fce4ec; margin: 0 20px 15px 20px;"></div>
+        {% endfor %}
     </div>
+    {% include 'partials/_footer.html' %}
+</div>
 {% endblock %}
-{% block footer %}{% include 'partials/_footer.html' %}{% endblock %}
+
+{% block footer %}{% endblock %}

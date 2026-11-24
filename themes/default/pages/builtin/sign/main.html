@@ -19,7 +19,8 @@
 {% set signing = not data.is_card_view and data.reward %}
 {% set said = data.bot_message.split(': ', 1) %}
 {% set hist = data.history %}
-<div class="wrapper">
+{% if data.night %}<style>html, body { background: #17141f; }</style>{% endif %}
+<div class="wrapper{% if data.night %} night{% endif %}">
     <header class="who">
         <img class="avatar" src="{{ data.user.avatar_url }}" alt="">
         <div class="who-text">
@@ -53,7 +54,9 @@
             {% for d in hist.days %}
             {% set following = hist.days[loop.index] if not loop.last else none %}
             {% set linked = d.state == 'signed' and following and following.state == 'signed' and (hist.offset + loop.index) % 7 %}
-            <span class="day {{ d.state }}{% if d.today %} today{% endif %}{% if linked %} linked{% endif %}">{{ d.day }}</span>
+            <span class="day {{ d.state }}{% if d.today %} today{% endif %}{% if linked %} linked{% endif %}">{{ d.day }}
+                {%- if d.rest is not none %}<i class="tag{% if not d.rest %} work{% endif %}">{{ '休' if d.rest else '班' }}</i>{% endif %}
+                {%- if d.festival %}<small class="fest">{{ d.festival }}</small>{% endif %}</span>
             {% endfor %}
         </div>
     </section>
@@ -107,9 +110,15 @@
         </div>
     </section>
 
-    <footer class="say">
+    {% set figure = asset('ui/mahiro/' ~ data.bot_figure) if data.bot_figure else '' %}
+    <footer class="say{% if figure %} with-figure{% endif %}">
+        {% if figure %}
+        <p class="bubble">{{ said[-1] }}</p>
+        <img class="figure" src="{{ figure }}" alt="">
+        {% else %}
         <img class="mahiro" src="{{ asset('./img/mahiro.png') }}" alt="">
         <p class="bubble">{{ said[-1] }}</p>
+        {% endif %}
     </footer>
 </div>
 {% endblock %}

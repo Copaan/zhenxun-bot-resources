@@ -1,0 +1,80 @@
+{% extends 'partials/_base.html' %}
+
+{% block title %}{{ data.title }}{% endblock %}
+
+{% block page_styles %}
+<style>
+    {% include './style.css' %}
+</style>
+{% endblock %}
+
+{% block body_content %}
+{% if data.night %}
+{% set figures = ['night/149001105.webp', 'night/123430532.webp', 'night/127657930.webp', 'night/127579503.webp'] %}
+<style>html, body { background: #15131c; }</style>
+{% else %}
+{% set figures = ['day/127277055.webp', 'day/114293683.webp', 'day/126833712.webp', 'day/130444369.webp', 'day/133934441.webp', 'day/139187245.webp'] %}
+{% endif %}
+{% set figure = asset('ui/mahiro/' ~ (figures | random)) %}
+{% set top = [data.rows[0].count, 1] | max %}
+<div class="page{% if data.night %} night{% endif %}{% if figure %} with-figure{% endif %}">
+    <header class="hero">
+        <p class="kicker">{{ data.bot_nickname }} · Message Rank</p>
+        <h1>{{ data.title }}</h1>
+        <p class="range">{{ data.date_range }}</p>
+        <div class="stats">
+            <div><b>{{ data.total }}</b><span>条消息</span></div>
+            <div><b>{{ data.rows | length }}</b><span>人上榜</span></div>
+        </div>
+        {% if figure %}<img class="figure" src="{{ figure }}" alt="">{% endif %}
+    </header>
+
+    {% if data.rows | length >= 3 %}
+    <section class="podium">
+        {% for r in [data.rows[1], data.rows[0], data.rows[2]] %}
+        <div class="pod p{{ r.rank }}">
+            <span class="medal">{{ r.rank }}</span>
+            <img class="avatar" src="{{ r.avatar }}" alt="">
+            <p class="name">{{ r.name }}</p>
+            <p class="num">{{ r.count }}<small> 条</small></p>
+            <div class="step"></div>
+        </div>
+        {% endfor %}
+    </section>
+    {% if data.rows | length > 3 %}
+    <section class="list">
+        {% for r in data.rows[3:] %}
+        <div class="row">
+            <span class="no">{{ r.rank }}</span>
+            <img class="avatar" src="{{ r.avatar }}" alt="">
+            <div class="mid">
+                <p class="name">{{ r.name }}{% if r.quit %} <span class="quit">已退群</span>{% endif %}</p>
+                <div class="bar"><div class="fill" style="width: {{ [r.count / top * 100, 2] | max }}%"></div></div>
+            </div>
+            <b class="count">{{ r.count }}</b>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+    {% else %}
+    <section class="cards">
+        {% for r in data.rows %}
+        <div class="card r{{ r.rank }}">
+            <span class="no">{{ r.rank }}</span>
+            <img class="avatar" src="{{ r.avatar }}" alt="">
+            <div class="mid">
+                <div class="line">
+                    <p class="name">{{ r.name }}{% if r.quit %} <span class="quit">已退群</span>{% endif %}</p>
+                    <b class="count">{{ r.count }}</b>
+                </div>
+                <div class="bar"><div class="fill" style="width: {{ [r.count / top * 100, 2] | max }}%"></div></div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+    {% include 'partials/_footer.html' %}
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
