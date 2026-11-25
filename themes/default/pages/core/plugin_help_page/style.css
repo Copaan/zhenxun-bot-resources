@@ -190,6 +190,9 @@ body {
   color: var(--count-ink);
 }
 
+.cat.sub {
+  margin: 6px 4px 12px;
+}
 .cols {
   display: flex;
   align-items: flex-start;

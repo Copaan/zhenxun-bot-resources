@@ -24,18 +24,6 @@
       "page_bg_accent": { "value": "#ffc0cb", "maps_to": "background_card" },
       "code_background_dark": { "value": "#4b3f4c", "maps_to": "text_dark" }
     },
-    "bot_profile": {
-      "wrapper_bg": { "value": "#fce4ec", "maps_to": "background_card" },
-      "border_main": { "value": "#e5aabe", "maps_to": "border_light" },
-      "border_divider": { "value": "#f0b6ca", "maps_to": "border_light" },
-      "text_title": { "value": "#f7a0b5", "maps_to": "primary" },
-      "text_content": { "value": "#f384a7", "maps_to": "text_dark" },
-      "text_muted": { "value": "#dda6b8", "maps_to": "text_muted" },
-      "item_bg": { "value": "#fdf1f5", "maps_to": "background_card" },
-      "text_strong": { "value": "#e26189", "maps_to": "primary_dark" },
-      "notes_text": { "value": "#7b4f5e", "maps_to": "text_muted" },
-      "notes_bg": { "value": "#fbe4e7", "maps_to": "background_card" }
-    },
     "my_info": {
       "primary": { "value": "#E08A9F", "maps_to": "primary" },
       "accent": { "value": "#E0899E", "maps_to": "primary" },

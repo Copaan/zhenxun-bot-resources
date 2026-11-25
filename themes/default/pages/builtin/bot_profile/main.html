@@ -1,69 +1,59 @@
 {% extends 'partials/_base.html' %}
-{% import "macros/ui.jinja" as ui %}
+
+{% block title %}自我介绍{% endblock %}
 
 {% block page_styles %}
-    <style>
-        {% include './style.css' %}
-    </style>
+<style>
+    {% include './style.css' %}
+</style>
 {% endblock %}
 
 {% block body_content %}
-    <div class="main-wrapper">
-        <h1 class="page-title">{{ data.title }}</h1>
-        <div class="top-section">
-            <div class="image-section">
-                <img src="{{ data.avatar }}" alt="{{ data.bot_name }}" class="bot-image">
-            </div>
-
-            <div class="info-section">
-                <div class="info-header">
-                    <div class="bot-name">{{ data.bot_name }}</div>
-                    <div class="tags-container flex flex-wrap gap-sm justify-center">
-                        {% for tag in data.tags %}
-                            {{ ui.badge(tag.text, color='primary', rounded=True) }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="description-section">
-                    {% if data.bot_description and data.bot_description.strip() %}
-                        <div class="description-content markdown-content">{{ data.bot_description | md | safe }}</div>
-                    {% else %}
-                        <div class="description-content">
-                            <div class="empty-description">暂无介绍信息</div>
-                        </div>
-                    {% endif %}
+{% if data.night %}
+{% set figures = ['night/149001105.webp', 'night/123430532.webp', 'night/127657930.webp', 'night/127579503.webp'] %}
+<style>html, body { background: #15131c; }</style>
+{% else %}
+{% set figures = ['day/127277055.webp', 'day/114293683.webp', 'day/126833712.webp', 'day/130444369.webp', 'day/133934441.webp', 'day/139187245.webp'] %}
+{% endif %}
+{% set figure = asset('ui/mahiro/' ~ (figures | random)) %}
+<div class="page{% if data.night %} night{% endif %}">
+    <div class="card">
+        <div class="banner">
+            <p class="eyebrow">PROFILE</p>
+            <h1>{{ data.title }}</h1>
+            <img class="figure" src="{{ figure }}" alt="">
+        </div>
+        <div class="head">
+            <img class="avatar{% if not data.avatar %} fallback{% endif %}" src="{{ data.avatar or figure }}" alt="">
+            <div class="who">
+                <p class="name">{{ data.bot_name }}</p>
+                <div class="tags">
+                    {% for tag in data.tags %}<span>{{ tag.text }}</span>{% endfor %}
                 </div>
             </div>
         </div>
-        {% if data.plugin_list and data.plugin_list | length > 0 %}
-        <div class="plugins-container">
-            <div class="plugins-section">
-                <div class="plugins-title">插件有话说</div>
-                <div class="plugins-grid grid grid-cols-2 gap-md">
-                    {% for plugin in data.plugin_list %}
-                        {% call ui.card(class="h-full") %}
-                            {% if plugin.name %}
-                            <div class="font-bold text-lg text-primary mb-sm">
-                                {{ plugin.name }}
-                            </div>
-                            {% endif %}
-                            <div class="text-sm text-dark mb-md">
-                                {{ plugin.introduction }}
-                            </div>
-                            {% if plugin.precautions and plugin.precautions | length > 0 %}
-                                {{ ui.divider(margin='sm') }}
-                                <div class="text-xs text-muted">
-                                    {% for note in plugin.precautions %}
-                                    <div>⚠️ {{ note }}</div>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        {% endcall %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+        {% if data.bot_description and data.bot_description.strip() %}
+        <div class="md">{{ data.bot_description | md | safe }}</div>
+        {% else %}
+        <p class="empty">暂无介绍信息</p>
         {% endif %}
     </div>
+    {% if data.plugin_list %}
+    <section class="notes">
+        <h2>插件有话说</h2>
+        <div class="note-list">
+            {% for plugin in data.plugin_list %}
+            <div class="note">
+                <b>{{ plugin.name }}</b>
+                {% if plugin.introduction %}<p>{{ plugin.introduction }}</p>{% endif %}
+                {% for tip in plugin.precautions or [] %}<p class="tip">{{ tip }}</p>{% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    {% include 'partials/_footer.html' %}
+</div>
 {% endblock %}
-{% block footer %}{% include 'partials/_footer.html' %}{% endblock %}
+
+{% block footer %}{% endblock %}

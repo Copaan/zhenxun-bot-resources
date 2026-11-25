@@ -35,6 +35,35 @@
             {% for c in data.categories %}{% for item in c['items'] %}<span>{{ item.name }}</span>{% endfor %}{% endfor %}
         </nav>
 
+        {% macro card(item) %}
+        <article class="card">
+            <h3>{{ item.name }}</h3>
+            <div class="desc">{{ item.description | md | safe }}</div>
+            {% if item.usage %}<div class="usage">{{ item.usage | md | safe }}</div>{% endif %}
+        </article>
+        {% endmacro %}
+
+        {% if data.sections %}
+        {% for s in data.sections %}
+        <h2 class="cat">
+            <svg viewBox="0 0 24 24"><path d="{{ s.icon_svg_path }}"/></svg>{{ s.title }}<em>{{ s.count }}</em>
+        </h2>
+        <div class="cols">
+            {% for column in s.columns %}
+            <div class="col">
+                {% for block in column %}
+                {% if block.title %}
+                <h2 class="cat sub">
+                    <svg viewBox="0 0 24 24"><path d="{{ block.icon_svg_path }}"/></svg>{{ block.title }}<em>{{ block['items'] | length }}</em>
+                </h2>
+                {% endif %}
+                {% for item in block['items'] %}{{ card(item) }}{% endfor %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% else %}
         {% for c in data.categories %}
         <h2 class="cat">
             <svg viewBox="0 0 24 24"><path d="{{ c.icon_svg_path }}"/></svg>{{ c.title }}<em>{{ c['items'] | length }}</em>
@@ -53,17 +82,12 @@
         <div class="cols">
             {% for column in ns.cols %}
             <div class="col">
-                {% for item in column %}
-                <article class="card">
-                    <h3>{{ item.name }}</h3>
-                    <div class="desc">{{ item.description | md | safe }}</div>
-                    {% if item.usage %}<div class="usage">{{ item.usage | md | safe }}</div>{% endif %}
-                </article>
-                {% endfor %}
+                {% for item in column %}{{ card(item) }}{% endfor %}
             </div>
             {% endfor %}
         </div>
         {% endfor %}
+        {% endif %}
     </div>
     {% include 'partials/_footer.html' %}
 </div>

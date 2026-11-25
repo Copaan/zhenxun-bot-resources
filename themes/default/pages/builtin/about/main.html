@@ -1,0 +1,45 @@
+{% extends 'partials/_base.html' %}
+
+{% block title %}关于{% endblock %}
+
+{% block page_styles %}
+<style>
+    {% include './style.css' %}
+</style>
+{% endblock %}
+
+{% block body_content %}
+{% if data.night %}
+{% set figures = ['night/149001105.webp', 'night/123430532.webp', 'night/127657930.webp', 'night/127579503.webp'] %}
+<style>html, body { background: #15131c; }</style>
+{% else %}
+{% set figures = ['day/127277055.webp', 'day/114293683.webp', 'day/126833712.webp', 'day/130444369.webp', 'day/133934441.webp', 'day/139187245.webp'] %}
+{% endif %}
+{% set figure = asset('ui/mahiro/' ~ (figures | random)) %}
+<div class="page{% if data.night %} night{% endif %}">
+    <div class="card">
+        <aside class="side">
+            <p class="kicker">{{ data.nickname }}</p>
+            <p class="ver">{{ data.version }}</p>
+            {% if figure %}<img class="figure" src="{{ figure }}" alt="">{% endif %}
+        </aside>
+        <main class="body">
+            <p class="eyebrow">ABOUT</p>
+            <h1>绪山真寻 Bot</h1>
+            <p class="intro">{{ data.intro }}</p>
+            <dl class="facts">
+                {% for label, value in data.stats %}
+                <div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>
+                {% endfor %}
+            </dl>
+            <div class="repo">
+                <img class="owner" src="{{ asset('ui/about/zhenxun-org.png') }}" alt="">
+                <p>zhenxun-org <i>/</i> <b>zhenxun_bot</b></p>
+            </div>
+        </main>
+    </div>
+    {% include 'partials/_footer.html' %}
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
